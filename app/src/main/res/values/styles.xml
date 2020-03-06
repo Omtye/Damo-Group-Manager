@@ -9,9 +9,13 @@
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
-        <item name="android:background">@color/white</item>
-        <item name="android:fontFamily">@font/jalnan</item>
+        <!--<item name="colorPrimary">#f5a623</item>                                &lt;!&ndash; 배경 &ndash;&gt;
         <item name="android:textColor">@color/main_button</item>
+        <item name="android:textColorPrimary">@color/colorAccent</item>       &lt;!&ndash; 탭바 선택된 텍스트 &ndash;&gt;-->
+        <item name="android:colorPrimary">#ffffff</item>
+        <item name="android:fontFamily">@font/jalnan</item>
+        <item name="android:textColorSecondary">@android:color/black</item>     <!-- 탭바 텍스트 -->
+        <item name="colorAccent">#673AB7</item>                    <!-- 하단 움직이는 바 색-->
 
     </style>
 

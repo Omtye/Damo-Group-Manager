@@ -4,38 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <!-- Your scrolling content -->
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_Pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.google.android.material.tabs.TabLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top" />
-
-        </androidx.viewpager.widget.ViewPager>
-
-    </androidx.core.widget.NestedScrollView>
 
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-
+        android:layout_width="match_parent"
+        android:theme="@style/ToolbarTheme">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:layout_scrollFlags="scroll|enterAlways"
-            android:theme="@style/ToolbarTheme"/>
+            />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -43,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
 
-            <com.google.android.material.tabs.TabItem
+            <!--<com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_home"
                 android:icon="@drawable/icons8_home_96" />
 
@@ -61,10 +42,27 @@
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tab_individual"
-                android:icon="@drawable/icons8_person_256" />
+                android:icon="@drawable/icons8_person_256" />-->
 
         </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_Pager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <!--<androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        &lt;!&ndash; Your scrolling content &ndash;&gt;
+
+    </androidx.core.widget.NestedScrollView>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
