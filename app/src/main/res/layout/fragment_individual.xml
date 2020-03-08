@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icons8_person_256"/>
+
+
+    </LinearLayout>-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/main_button"
+                android:text="프로필 수정"
+                android:textColor="@color/button_text"
+                android:fontFamily="@font/jalnan"
+
+                />
+
+            <TextView
+                android:layout_width="@dimen/menu_button_weight"
+                android:layout_height="@dimen/menu_button_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/menu_button"
+                android:gravity="center"
+                android:text="모임관리"
+                android:textSize="30dp"
+                android:fontFamily="@font/jalnan"
+                android:textColor="@color/button_text"/>
+
+            <TextView
+                android:layout_width="@dimen/menu_button_weight"
+                android:layout_height="@dimen/menu_button_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menu_button"
+                android:gravity="center"
+                android:text="모임생성"
+                android:textSize="30dp"
+                android:fontFamily="@font/jalnan"
+                android:textColor="@color/button_text"/>
+
+            <TextView
+                android:layout_width="@dimen/menu_button_weight"
+                android:layout_height="@dimen/menu_button_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menu_button"
+                android:gravity="center"
+                android:text="메뉴"
+                android:textSize="30dp"
+                android:fontFamily="@font/jalnan"
+                android:textColor="@color/button_text"/>
+
+            <TextView
+                android:layout_width="@dimen/menu_button_weight"
+                android:layout_height="@dimen/menu_button_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menu_button"
+                android:gravity="center"
+                android:text="메뉴"
+                android:textSize="30dp"
+                android:fontFamily="@font/jalnan"
+                android:textColor="@color/button_text"/>
+
+            <TextView
+                android:layout_width="@dimen/menu_button_weight"
+                android:layout_height="@dimen/menu_button_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menu_button"
+                android:gravity="center"
+                android:text="메뉴"
+                android:textSize="30dp"
+                android:fontFamily="@font/jalnan"
+                android:textColor="@color/button_text"/>
+
+            <TextView
+                android:layout_width="@dimen/menu_button_weight"
+                android:layout_height="@dimen/menu_button_height"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/menu_button"
+                android:gravity="center"
+                android:text="메뉴"
+                android:textSize="30dp"
+                android:fontFamily="@font/jalnan"
+                android:textColor="@color/button_text"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>
