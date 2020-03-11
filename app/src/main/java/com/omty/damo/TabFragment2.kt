@@ -14,7 +14,6 @@ class TabFragment2 : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("testt","Fragment2")
         return inflater.inflate(R.layout.tab_fragment_2, container, false)
     }
 }

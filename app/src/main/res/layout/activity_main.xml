@@ -7,17 +7,16 @@
 
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-
         android:theme="@style/ToolbarTheme">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            />
+            app:layout_scrollFlags="scroll|snap"/>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -25,37 +24,12 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
 
-            <!--<com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_home"
-                android:icon="@drawable/icons8_home_96" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_search"
-                android:icon="@drawable/ic_search_black_24dp" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_group"
-                android:icon="@drawable/icons8_user_groups_64" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_bell"
-                android:icon="@drawable/icons8_bell_96" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tab_individual"
-                android:icon="@drawable/icons8_person_256" />-->
 
         </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!--<androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_Pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </androidx.viewpager.widget.ViewPager>-->
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"

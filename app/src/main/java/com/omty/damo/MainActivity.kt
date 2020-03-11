@@ -4,22 +4,30 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.View.OVER_SCROLL_NEVER
+import android.view.animation.DecelerateInterpolator
+import androidx.appcompat.widget.Toolbar
+import androidx.core.internal.view.SupportMenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 
 
 class MainActivity : AppCompatActivity() {
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Damo"
+        toolbar.title = "Damo"
 
         view_Pager.adapter = FragmentPagerAdapter(supportFragmentManager)
 
+        var params : AppBarLayout.LayoutParams = toolbar.layoutParams as AppBarLayout.LayoutParams
 
 
         view_Pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -28,11 +36,28 @@ class MainActivity : AppCompatActivity() {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                // 페이지가 스크롤됐을 때
+
             }
 
             override fun onPageSelected(position: Int) {
-                // 페이지가 선택됐을 때
+                when (position){
+                    0 -> {
+                        actionbarAnimate(0F)
+                    //    params.setScrollFlags(0)
+                    //    params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
+                    //    toolbar.layoutParams = params
+
+                    }
+
+                    else -> {
+                        actionbarAnimate(toolbar.height.toFloat() * -1)
+                    //    params.setScrollFlags(0)
+                    //    params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS or AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS_COLLAPSED
+                    //    toolbar.layoutParams = params
+
+                    }
+
+                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -64,6 +89,14 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
+
+    private fun actionbarAnimate(Value : Float){
+        appbar.animate()
+            .translationY(Value.toFloat())
+            .alpha(10F).setDuration(130)
+            .setInterpolator(DecelerateInterpolator())
+    }
+
 
 
 
