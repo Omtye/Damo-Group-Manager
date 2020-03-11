@@ -20,8 +20,10 @@ class FragmentPagerAdapter : FragmentPagerAdapter {
         return when (position) {
             0 ->  TabFragment1()
             1 ->  TabFragment2()
+            2 ->  TabFragment3()
+            3 ->  TabFragment4()
             4 ->  Individual()
-            else ->  TabFragment1()
+            else -> TabFragment1()
         }
 
 
