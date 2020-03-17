@@ -8,8 +8,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:theme="@style/ToolbarTheme">
 
         <androidx.appcompat.widget.Toolbar
@@ -40,12 +40,27 @@
 
         <!-- Your scrolling content -->
 
-        <androidx.viewpager.widget.ViewPager
+        <!--<androidx.viewpager.widget.ViewPager
             android:id="@+id/view_Pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </androidx.viewpager.widget.ViewPager>
+        </androidx.viewpager.widget.ViewPager>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="800dp"
+            android:orientation="vertical">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/view_Pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+
 
     </androidx.core.widget.NestedScrollView>
 
