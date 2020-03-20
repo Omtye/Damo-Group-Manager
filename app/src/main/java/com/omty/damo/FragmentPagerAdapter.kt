@@ -8,6 +8,8 @@ class FragmentPagerAdapter : FragmentPagerAdapter {
 
     var behavior: Int = 5
 
+    //Commit용 주석테스
+
     private val fragmentTitleList = mutableListOf("A","B","C","D","E")
 
     constructor(fm: FragmentManager) : super(fm)
