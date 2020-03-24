@@ -27,6 +27,7 @@
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/meetting_title"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginTop="50dp"
@@ -35,6 +36,7 @@
             android:hint="모임명"/>
 
         <EditText
+            android:id="@+id/meetting_category"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -43,20 +45,10 @@
 
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/outlinedTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="text">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+        android:id="@+id/confirm_meetting"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
