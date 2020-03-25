@@ -13,7 +13,6 @@ import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-
 class MeettingCreateActivity : AppCompatActivity(){
 
     private val IP_ADDRESS = "10.0.2.2"
