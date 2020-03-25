@@ -1,7 +1,9 @@
 package com.omty.damo
 
+import android.app.ProgressDialog
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.meetting_create.*
@@ -14,6 +16,9 @@ import java.net.URL
 
 
 class MeettingCreateActivity : AppCompatActivity(){
+
+    private val IP_ADDRESS = "10.0.2.2"
+    private val TAG = "phptest"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.meetting_create)
@@ -22,8 +27,11 @@ class MeettingCreateActivity : AppCompatActivity(){
 
         confirm_meetting.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-                val name: String = meetting_title.text.toString()
-                val country: String = meetting_category.text.toString()
+                val title: String = meetting_title.text.toString()
+
+                Log.d("testt","ClickOnclickListener")
+                val task = InsertData()
+                task.execute("http://" + IP_ADDRESS.toString() + "/insert.php", title)
             }
         })
 
@@ -33,12 +41,13 @@ class MeettingCreateActivity : AppCompatActivity(){
 
 class InsertData : AsyncTask<String, Void, String>(){
 
+
+
     override fun doInBackground(vararg params: String?): String {
-        val name: String? = params[1]
-        val country : String? = params[2]
+        val title: String? = params[1]
 
         val serverURL : String? = params[0]
-        val postParameters : String = "name=$name&country=$country"
+        val postParameters : String = "title=$title"
 
         try{
             val url = URL(serverURL)
@@ -79,7 +88,7 @@ class InsertData : AsyncTask<String, Void, String>(){
 
             bufferedReader.close();
 
-
+            Log.d("testt","doinbackground"+sb.toString())
             return sb.toString();
 
         }catch (e : Exception){
