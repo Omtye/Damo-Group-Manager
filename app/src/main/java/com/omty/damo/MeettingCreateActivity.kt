@@ -4,6 +4,7 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.meetting_create.*
 import java.io.BufferedReader
@@ -30,6 +31,9 @@ class MeettingCreateActivity : AppCompatActivity(){
                 Log.d("testt","ClickOnclickListener")
                 val task = InsertData()
                 task.execute("http://" + IP_ADDRESS.toString() + "/insert.php", title)
+
+                finish()
+                Toast.makeText(applicationContext,"모임이 생성되었습니다.",Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -46,6 +50,8 @@ class InsertData : AsyncTask<String, Void, String>(){
 
         val serverURL : String? = params[0]
         val postParameters : String = "title=$title"
+
+        Log.d("testt","title : "+title)
 
         try{
             val url = URL(serverURL)
