@@ -22,28 +22,11 @@ class MeettingCreateActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.meetting_create)
 
-
-
-        confirm_meetting.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                val title: String = meetting_title.text.toString()
-
-                Log.d("testt","ClickOnclickListener")
-                val task = InsertData()
-                task.execute("http://" + IP_ADDRESS.toString() + "/insert.php", title)
-
-                finish()
-                Toast.makeText(applicationContext,"모임이 생성되었습니다.",Toast.LENGTH_SHORT).show()
-            }
-        })
-
     }
 }
 
 
 class InsertData : AsyncTask<String, Void, String>(){
-
-
 
     override fun doInBackground(vararg params: String?): String {
         val title: String? = params[1]
