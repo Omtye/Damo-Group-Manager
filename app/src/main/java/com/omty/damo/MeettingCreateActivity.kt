@@ -1,10 +1,13 @@
 package com.omty.damo
 
+
+import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.meetting_create.*
 import java.io.BufferedReader
@@ -14,6 +17,7 @@ import java.io.OutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
+
 class MeettingCreateActivity : AppCompatActivity(){
 
     private val IP_ADDRESS = "10.0.2.2"
@@ -22,7 +26,25 @@ class MeettingCreateActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.meetting_create)
 
+        /*카테고리 항목 달기*/
+        val COUNTRIES = arrayOf<String?>("Item 1", "Item 2", "Item 3", "Item 4")
+
+        val adapter: ArrayAdapter<String?> = ArrayAdapter<String?>(
+            applicationContext,
+            R.layout.drapdown_category,
+            COUNTRIES
+        )
+
+        val editTextFilledExposedDropdown: AutoCompleteTextView = filled_exposed_dropdown
+
+        editTextFilledExposedDropdown.setAdapter(adapter)
+
+
+
+
     }
+
+
 }
 
 
