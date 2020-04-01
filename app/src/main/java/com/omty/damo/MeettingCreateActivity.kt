@@ -1,11 +1,9 @@
 package com.omty.damo
 
 
-import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,25 +20,43 @@ class MeettingCreateActivity : AppCompatActivity(){
 
     private val IP_ADDRESS = "10.0.2.2"
     private val TAG = "phptest"
+    private val COUNTRIES = arrayOf<String?>("Item 1", "Item 2", "Item 3", "Item 4")
+    private val MAX_USER_CNT = arrayListOf<Int?>(10,20,30,40,50)
+    private val OPEN_FLAGS = arrayListOf<String?>("YES","NO")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.meetting_create)
 
         /*카테고리 항목 달기*/
-        val COUNTRIES = arrayOf<String?>("Item 1", "Item 2", "Item 3", "Item 4")
-
-        val adapter: ArrayAdapter<String?> = ArrayAdapter<String?>(
+        var categoryAdapter: ArrayAdapter<String?> = ArrayAdapter<String?>(
             applicationContext,
-            R.layout.drapdown_category,
+            R.layout.drapdown,
             COUNTRIES
         )
 
-        val editTextFilledExposedDropdown: AutoCompleteTextView = filled_exposed_dropdown
+        var category: AutoCompleteTextView = category_dropDown
 
-        editTextFilledExposedDropdown.setAdapter(adapter)
+        category.setAdapter(categoryAdapter)
 
+        /*최대인원수 항목 달기*/
+        var maxUserCntAdapter: ArrayAdapter<Int?> = ArrayAdapter<Int?>(
+            applicationContext,
+            R.layout.drapdown,
+            MAX_USER_CNT
+        )
+        var maxUserCnt: AutoCompleteTextView = maxUserCnt_dropDown
 
+        maxUserCnt.setAdapter(maxUserCntAdapter)
 
+        /*공개여부 항목 달기*/
+        var isOpenAdapter: ArrayAdapter<String?> = ArrayAdapter<String?>(
+            applicationContext,
+            R.layout.drapdown,
+            OPEN_FLAGS
+        )
+        var isOpen: AutoCompleteTextView = isOpen_dropDown
+
+        isOpen.setAdapter(isOpenAdapter)
 
     }
 
