@@ -14,17 +14,17 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <!--name-->
+        <!--title-->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:hint="이름"
-
             app:endIconMode="clear_text"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@id/title"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:textSize="15dp"/>
@@ -41,11 +41,12 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
 
             <AutoCompleteTextView
-                android:id="@+id/category_dropDown"
+                android:id="@+id/category"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/rubik_light"
-                android:textSize="15dp" />
+                android:focusable="false"
+                android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,10 +64,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
 
                 <AutoCompleteTextView
-                    android:id="@+id/maxUserCnt_dropDown"
+                    android:id="@+id/maxUserCnt"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/rubik_light"
+                    android:focusable="false"
                     android:textSize="15dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -79,10 +81,11 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu">
 
                 <AutoCompleteTextView
-                    android:id="@+id/isOpen_dropDown"
+                    android:id="@+id/isOpen"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="@font/rubik_light"
+                    android:focusable="false"
                     android:textSize="15dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -102,6 +105,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/comment"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:textSize="15dp"/>

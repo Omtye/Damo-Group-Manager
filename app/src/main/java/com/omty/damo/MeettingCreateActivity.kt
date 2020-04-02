@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.meetting_create.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -16,26 +19,40 @@ import java.net.HttpURLConnection
 import java.net.URL
 
 
+private var categoryJsonString : String? = null
+private var CATEGORY : ArrayList<String?>? = arrayListOf<String?>()
+
 class MeettingCreateActivity : AppCompatActivity(){
 
     private val IP_ADDRESS = "10.0.2.2"
     private val TAG = "phptest"
-    private val COUNTRIES = arrayOf<String?>("Item 1", "Item 2", "Item 3", "Item 4")
+
     private val MAX_USER_CNT = arrayListOf<Int?>(10,20,30,40,50)
     private val OPEN_FLAGS = arrayListOf<String?>("YES","NO")
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.meetting_create)
+
+
+        val task = getData()
+        task.execute("http://$IP_ADDRESS/getjson.php", "")
+
+
+
+        Log.d("check","checkpoint1" + CATEGORY)
 
         /*카테고리 항목 달기*/
         var categoryAdapter: ArrayAdapter<String?> = ArrayAdapter<String?>(
             applicationContext,
             R.layout.drapdown,
-            COUNTRIES
+            CATEGORY!!
         )
 
-        var category: AutoCompleteTextView = category_dropDown
 
+        var category: AutoCompleteTextView = category
         category.setAdapter(categoryAdapter)
 
         /*최대인원수 항목 달기*/
@@ -44,8 +61,7 @@ class MeettingCreateActivity : AppCompatActivity(){
             R.layout.drapdown,
             MAX_USER_CNT
         )
-        var maxUserCnt: AutoCompleteTextView = maxUserCnt_dropDown
-
+        var maxUserCnt: AutoCompleteTextView = maxUserCnt
         maxUserCnt.setAdapter(maxUserCntAdapter)
 
         /*공개여부 항목 달기*/
@@ -54,72 +70,191 @@ class MeettingCreateActivity : AppCompatActivity(){
             R.layout.drapdown,
             OPEN_FLAGS
         )
-        var isOpen: AutoCompleteTextView = isOpen_dropDown
-
+        var isOpen: AutoCompleteTextView = isOpen
         isOpen.setAdapter(isOpenAdapter)
+
+
+
 
     }
 
-
-}
-
-
-class InsertData : AsyncTask<String, Void, String>(){
-
-    override fun doInBackground(vararg params: String?): String {
-        val title: String? = params[1]
-
-        val serverURL : String? = params[0]
-        val postParameters : String = "title=$title"
-
-        Log.d("testt","title : "+title)
-
-        try{
-            val url = URL(serverURL)
-            val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
+    private class InsertData : AsyncTask<String, Void, String>(){
 
 
-            httpURLConnection.readTimeout = 5000
-            httpURLConnection.connectTimeout = 5000
-            httpURLConnection.requestMethod = "POST"
-            httpURLConnection.connect()
+        override fun doInBackground(vararg params: String?): String {
+
+            val serverURL   : String? = params[0]
+            val title       : String? = params[1]
+            val category    : String? = params[2]
+            val maxUserCnt  : String? = params[3]
+            val isOpen      : String? = params[4]
+            val postParameters : String = "title=$title&category=$category&maxUserCnt=$maxUserCnt&isOpen=$isOpen"
 
 
-            val outputStream: OutputStream = httpURLConnection.outputStream
-            outputStream.write(postParameters.toByteArray(charset("UTF-8")))
-            outputStream.flush()
-            outputStream.close()
 
-            val responseStatusCode : Int = httpURLConnection.responseCode
+            try{
+                val url = URL(serverURL)
+                val httpURLConnection: HttpURLConnection = url.openConnection() as HttpURLConnection
 
 
-            val inputStream: InputStream
-            inputStream = if (responseStatusCode == HttpURLConnection.HTTP_OK) {
-                httpURLConnection.inputStream
-            } else {
-                httpURLConnection.errorStream
+                httpURLConnection.readTimeout    = 5000
+                httpURLConnection.connectTimeout = 5000
+                httpURLConnection.requestMethod  = "POST"
+                httpURLConnection.connect()
+
+
+                val outputStream: OutputStream = httpURLConnection.outputStream
+                outputStream.write(postParameters.toByteArray(charset("UTF-8")))
+                outputStream.flush()
+                outputStream.close()
+
+                val responseStatusCode : Int = httpURLConnection.responseCode
+
+
+                val inputStream: InputStream
+                inputStream = if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    httpURLConnection.inputStream
+                } else {
+                    httpURLConnection.errorStream
+                }
+
+
+                val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
+                val bufferedReader = BufferedReader(inputStreamReader)
+
+                val sb = StringBuilder()
+                var line: String? = null
+
+                while (bufferedReader.readLine().also({ line = it }) != null) {
+                    sb.append(line)
+                }
+
+                bufferedReader.close();
+
+                return sb.toString();
+
+            }catch (e : Exception){
+                return "Error" + e.message
             }
 
-
-            val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
-            val bufferedReader = BufferedReader(inputStreamReader)
-
-            val sb = StringBuilder()
-            var line: String? = null
-
-            while (bufferedReader.readLine().also({ line = it }) != null) {
-                sb.append(line)
-            }
-
-            bufferedReader.close();
-
-            Log.d("testt","doinbackground"+sb.toString())
-            return sb.toString();
-
-        }catch (e : Exception){
-            return "Error" + e.message
         }
 
     }
 
+    private class getData : AsyncTask<String, Void, String>() {
+
+        var errorString: String? = null
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+
+            Log.d("check","onPostExecute")
+            if (result == null) {
+
+                return
+            } else {
+                categoryJsonString = result
+                showResult()
+            }
+        }
+
+        override fun doInBackground(vararg params: String?): String {
+            val serverURL = params[0]
+            val postParameters = params[1]
+
+            Log.d("check","doInBackgrond")
+            return try {
+                val url = URL(serverURL)
+                val httpURLConnection = url.openConnection() as HttpURLConnection
+
+
+
+                httpURLConnection.readTimeout    = 5000
+                httpURLConnection.connectTimeout = 5000
+                httpURLConnection.requestMethod  = "POST"
+                httpURLConnection.doInput = true
+                httpURLConnection.connect()
+
+
+                val outputStream = httpURLConnection.outputStream
+                outputStream.write(postParameters!!.toByteArray(charset("UTF-8")))
+                outputStream.flush()
+                outputStream.close()
+
+
+                val responseStatusCode = httpURLConnection.responseCode
+
+                val inputStream: InputStream
+                inputStream = if (responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    httpURLConnection.inputStream
+                } else {
+                    httpURLConnection.errorStream
+                }
+
+
+                val inputStreamReader = InputStreamReader(inputStream, "UTF-8")
+                val bufferedReader = BufferedReader(inputStreamReader)
+                val sb = java.lang.StringBuilder()
+                var line: String?
+
+                while (bufferedReader.readLine().also { line = it } != null) {
+                    sb.append(line)
+                }
+
+                bufferedReader.close()
+
+                sb.toString().trim { it <= ' ' }
+            } catch (e: Exception) {
+                e.toString()
+            }
+        }
+
+    }
+
+
 }
+
+private fun showResult() : Unit {
+
+    val TAG_JSON : String = "category"
+    val TAG_CategorySeq  : String = "categorySeq"
+    val TAG_CategoryName : String = "categoryName"
+
+
+
+    try {
+        val jsonObject = JSONObject(categoryJsonString)
+        val jsonArray: JSONArray = jsonObject.getJSONArray(TAG_JSON)
+
+
+        Log.d("testt",""+jsonArray)
+
+
+        for (i in 0 until jsonArray.length()){
+
+            val item = jsonArray.getJSONObject(i)
+
+            Log.d("check","item"+item.getString(TAG_CategoryName))
+            CATEGORY!!.add(item.getString(TAG_CategoryName))
+            Log.d("check",""+CATEGORY)
+
+            categoryAdapter.
+        }
+
+
+
+
+
+
+    }catch (e : JSONException){
+
+    }
+
+
+}
+
+
+
+
+
+
