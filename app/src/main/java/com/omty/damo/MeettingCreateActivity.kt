@@ -4,7 +4,6 @@ package com.omty.damo
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
@@ -39,7 +38,7 @@ class MeettingCreateActivity : AppCompatActivity(){
 
 
         val task = getData()
-        task.execute("http://$IP_ADDRESS/getjson.php", "")
+        task.execute("http://$IP_ADDRESS/getCategoryJson.php", "")
 
 
         /*카테고리 항목 달기*/
@@ -72,7 +71,20 @@ class MeettingCreateActivity : AppCompatActivity(){
         isOpen.setAdapter(isOpenAdapter)
 
 
-        confirm_meetting.setOnClickListener(Vi
+        confirm_meetting.setOnClickListener{
+            val meetingName : String = meetingName.text.toString()
+            val categorySeq : String = category.text.toString()
+            val maxUserCnt  : String = maxUserCnt.text.toString()
+            val isOpen      : String = isOpen.text.toString()
+            val comments    : String = comments.text.toString()
+
+            val task = InsertData()
+            task.execute("http://$IP_ADDRESS/insert.php", meetingName, categorySeq, maxUserCnt, isOpen, comments)
+
+
+
+        }
+
 
 
 
@@ -84,14 +96,28 @@ class MeettingCreateActivity : AppCompatActivity(){
         override fun doInBackground(vararg params: String?): String {
 
             val serverURL   : String? = params[0]
-            val title       : String? = params[1]
-            val category    : String? = params[2]
+            val meetingName : String? = params[1]
             val maxUserCnt  : String? = params[3]
-            val isOpen      : String? = params[4]
+            val comments    : String? = params[5]
+            var categorySeq : String? = null
+            var isOpen      : String? = null
+            var nowUserCnt  : String? = "1"
+
+            for (i in 0 until jsonArray!!.length()){
+                if(jsonArray!!.getJSONObject(i).getString("categoryName") == params[2])
+                    categorySeq = jsonArray!!.getJSONObject(i).getString("categorySeq")
+            }
+
+            if (params[4] == "YES")
+                isOpen = "1"
+            else
+                isOpen = "0"
+
+            Log.d("check","meetingName : " + meetingName + " maxUserCnt : " + maxUserCnt+ " isOpen : " + isOpen + " comments : " + " categorySeq : " + categorySeq)
+
+            val postParameters : String = "meetingName=$meetingName&categorySeq=$categorySeq&comments=$comments&maxUserCnt=$maxUserCnt&nowUserCnt=$nowUserCnt&isOpen=$isOpen"
 
 
-
-            val postParameters : String = "title=$title&category=$category&maxUserCnt=$maxUserCnt&isOpen=$isOpen"
 
 
 
@@ -134,9 +160,11 @@ class MeettingCreateActivity : AppCompatActivity(){
 
                 bufferedReader.close();
 
+                Log.d("Check","success" + sb.toString())
                 return sb.toString();
 
             }catch (e : Exception){
+                Log.d("Check","Error" + e.message)
                 return "Error" + e.message
             }
 
