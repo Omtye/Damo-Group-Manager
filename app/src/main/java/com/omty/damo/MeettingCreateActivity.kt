@@ -4,6 +4,7 @@ package com.omty.damo
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AppCompatActivity
@@ -21,11 +22,11 @@ import java.net.URL
 
 private var categoryJsonString : String? = null
 private var CATEGORY : ArrayList<String?>? = arrayListOf<String?>()
+private var jsonArray: JSONArray? = null
 
 class MeettingCreateActivity : AppCompatActivity(){
 
     private val IP_ADDRESS = "10.0.2.2"
-    private val TAG = "phptest"
 
     private val MAX_USER_CNT = arrayListOf<Int?>(10,20,30,40,50)
     private val OPEN_FLAGS = arrayListOf<String?>("YES","NO")
@@ -40,9 +41,6 @@ class MeettingCreateActivity : AppCompatActivity(){
         val task = getData()
         task.execute("http://$IP_ADDRESS/getjson.php", "")
 
-
-
-        Log.d("check","checkpoint1" + CATEGORY)
 
         /*카테고리 항목 달기*/
         var categoryAdapter: ArrayAdapter<String?> = ArrayAdapter<String?>(
@@ -74,6 +72,8 @@ class MeettingCreateActivity : AppCompatActivity(){
         isOpen.setAdapter(isOpenAdapter)
 
 
+        confirm_meetting.setOnClickListener(Vi
+
 
 
     }
@@ -88,6 +88,9 @@ class MeettingCreateActivity : AppCompatActivity(){
             val category    : String? = params[2]
             val maxUserCnt  : String? = params[3]
             val isOpen      : String? = params[4]
+
+
+
             val postParameters : String = "title=$title&category=$category&maxUserCnt=$maxUserCnt&isOpen=$isOpen"
 
 
@@ -224,27 +227,15 @@ private fun showResult() : Unit {
 
     try {
         val jsonObject = JSONObject(categoryJsonString)
-        val jsonArray: JSONArray = jsonObject.getJSONArray(TAG_JSON)
+        jsonArray = jsonObject.getJSONArray(TAG_JSON)
 
 
-        Log.d("testt",""+jsonArray)
+        for (i in 0 until jsonArray!!.length()){
 
-
-        for (i in 0 until jsonArray.length()){
-
-            val item = jsonArray.getJSONObject(i)
-
-            Log.d("check","item"+item.getString(TAG_CategoryName))
+            val item = jsonArray!!.getJSONObject(i)
             CATEGORY!!.add(item.getString(TAG_CategoryName))
-            Log.d("check",""+CATEGORY)
 
-            categoryAdapter.
         }
-
-
-
-
-
 
     }catch (e : JSONException){
 

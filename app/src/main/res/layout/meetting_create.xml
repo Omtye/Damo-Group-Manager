@@ -115,8 +115,6 @@
     </LinearLayout>
 
 
-
-
     <Button
         android:id="@+id/confirm_meetting"
         android:layout_width="match_parent"
