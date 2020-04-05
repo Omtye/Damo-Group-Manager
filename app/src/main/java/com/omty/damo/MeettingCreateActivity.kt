@@ -90,6 +90,7 @@ class MeettingCreateActivity : AppCompatActivity(){
 
     }
 
+    /*Insert Data in mysql*/
     private class InsertData : AsyncTask<String, Void, String>(){
 
 
@@ -172,6 +173,7 @@ class MeettingCreateActivity : AppCompatActivity(){
 
     }
 
+    /*Get Data From mysql*/
     private class getData : AsyncTask<String, Void, String>() {
 
         var errorString: String? = null
