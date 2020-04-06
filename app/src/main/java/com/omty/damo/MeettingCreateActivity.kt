@@ -25,17 +25,14 @@ private var jsonArray: JSONArray? = null
 
 class MeettingCreateActivity : AppCompatActivity(){
 
-    private val IP_ADDRESS = "10.0.2.2"
-
+    private val IP_ADDRESS   = "10.0.2.2"
     private val MAX_USER_CNT = arrayListOf<Int?>(10,20,30,40,50)
-    private val OPEN_FLAGS = arrayListOf<String?>("YES","NO")
-
+    private val OPEN_FLAGS   = arrayListOf<String?>("YES","NO")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.meetting_create)
-
 
         val task = getData()
         task.execute("http://$IP_ADDRESS/getCategoryJson.php", "")
@@ -47,7 +44,6 @@ class MeettingCreateActivity : AppCompatActivity(){
             R.layout.drapdown,
             CATEGORY!!
         )
-
 
         var category: AutoCompleteTextView = category
         category.setAdapter(categoryAdapter)
@@ -81,12 +77,7 @@ class MeettingCreateActivity : AppCompatActivity(){
             val task = InsertData()
             task.execute("http://$IP_ADDRESS/insert.php", meetingName, categorySeq, maxUserCnt, isOpen, comments)
 
-
-
         }
-
-
-
 
     }
 
@@ -114,12 +105,8 @@ class MeettingCreateActivity : AppCompatActivity(){
             else
                 isOpen = "0"
 
-            Log.d("check","meetingName : " + meetingName + " maxUserCnt : " + maxUserCnt+ " isOpen : " + isOpen + " comments : " + " categorySeq : " + categorySeq)
 
             val postParameters : String = "meetingName=$meetingName&categorySeq=$categorySeq&comments=$comments&maxUserCnt=$maxUserCnt&nowUserCnt=$nowUserCnt&isOpen=$isOpen"
-
-
-
 
 
             try{
