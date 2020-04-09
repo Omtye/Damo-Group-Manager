@@ -95,10 +95,12 @@ class MeettingCreateActivity : AppCompatActivity(){
             var isOpen      : String? = null
             var nowUserCnt  : String? = "1"
 
+
             for (i in 0 until jsonArray!!.length()){
                 if(jsonArray!!.getJSONObject(i).getString("categoryName") == params[2])
                     categorySeq = jsonArray!!.getJSONObject(i).getString("categorySeq")
             }
+
 
             if (params[4] == "YES")
                 isOpen = "1"
@@ -148,11 +150,10 @@ class MeettingCreateActivity : AppCompatActivity(){
 
                 bufferedReader.close();
 
-                Log.d("Check","success" + sb.toString())
+
                 return sb.toString();
 
             }catch (e : Exception){
-                Log.d("Check","Error" + e.message)
                 return "Error" + e.message
             }
 
